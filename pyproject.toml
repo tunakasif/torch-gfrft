@@ -2,10 +2,12 @@
 name = "torch-gfrt"
 version = "0.1.0"
 description = "Python project contains all the boilerplate you need to create a Python package."
-authors = ["Tuna Alikasifoglu <tunakasif@gmail.com>"]
+authors = ["Tuna Alikaşifoğlu <tunakasif@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
+torch = "2.0.0"
+numpy = "^1.26.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.4"

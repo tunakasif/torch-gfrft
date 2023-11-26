@@ -15,6 +15,17 @@ GRAPH_SHIFT = th.rand(SIZE, SIZE, dtype=th.float64, device=DEVICE)
 GRAPH_SIGNAL = th.rand(SIZE, dtype=th.float64, device=DEVICE)
 
 
+def test_gft_trivial() -> None:
+    gft = GFT(shift_mtx=th.eye(SIZE, device=DEVICE))
+    graph_freqs = gft.graph_freqs
+    gft_mtx = gft.gft_mtx
+    igft_mtx = gft.igft_mtx
+
+    assert th.allclose(graph_freqs, th.ones_like(graph_freqs))
+    assert th.allclose(gft_mtx, th.eye(SIZE, device=DEVICE))
+    assert th.allclose(igft_mtx, th.eye(SIZE, device=DEVICE))
+
+
 def test_gft_tv_real_identity() -> None:
     gft = GFT(
         shift_mtx=GRAPH_SHIFT,

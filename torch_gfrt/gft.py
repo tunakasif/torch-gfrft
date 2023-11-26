@@ -19,12 +19,10 @@ class GFT:
         else:
             eigvals, eigvecs = th.linalg.eig(shift_mtx)
 
-        if eigval_sort_strategy == EigvalSortStrategy.TOTAL_VARIATION:
-            eigvals, eigvecs = tv_sort(shift_mtx, eigvals, eigvecs)
-        elif eigval_sort_strategy == EigvalSortStrategy.ASCENDING:
+        if eigval_sort_strategy == EigvalSortStrategy.ASCENDING:
             eigvals, eigvecs = asc_sort(eigvals, eigvecs, complex_sort_strategy)
         else:
-            raise ValueError(f"Unknown sort strategy: {eigval_sort_strategy}")
+            eigvals, eigvecs = tv_sort(shift_mtx, eigvals, eigvecs)
 
         self._graph_freqs = eigvals
         self._igft_mtx = eigvecs

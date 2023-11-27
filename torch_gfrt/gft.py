@@ -5,12 +5,12 @@ from torch_gfrt.utils import asc_sort, is_hermitian, tv_sort
 
 
 class GFT:
-    """Graph Fourier Transform (GFT) class. The GFT class can be used to calculate the GFT, inverse GFT and graph frequencies of a graph given a shift matrix. The default assumption is that the shift matrix is the adjacency matrix, so eigenvalue sorting strategy, i.e., graph frequency sorting startegy defaults to total variation sorting (based on real parts if complex valued). The shift matrix type, e.g., Laplacian, eigenvalue and complex number sorting strategies can be adjusted as pleased. The GFT class is initialized with a shift matrix and optional sorting strategies. Then, the GFT matrix, the inverse GFT matrix and the graph frequencies calculated during initialization using the corresponding methods."""
+    """Graph Fourier Transform (GFT) class. The GFT class can be used to calculate the GFT, inverse GFT and graph frequencies of a graph given a shift matrix. The shift matrix type (adjacency, Laplacian, etc.), eigenvalue, and complex number sorting strategies can be adjusted as pleased. The GFT class is initialized with a shift matrix and optional sorting strategies. Then, the GFT matrix, the inverse GFT matrix and the graph frequencies calculated during initialization using the corresponding methods."""
 
     def __init__(
         self,
         shift_mtx: th.Tensor,
-        eigval_sort_strategy: EigvalSortStrategy = EigvalSortStrategy.TOTAL_VARIATION,
+        eigval_sort_strategy: EigvalSortStrategy = EigvalSortStrategy.NO_SORT,
         complex_sort_strategy: ComplexSortStrategy = ComplexSortStrategy.REAL,
     ) -> None:
         hermitian = is_hermitian(shift_mtx)
@@ -21,7 +21,7 @@ class GFT:
 
         if eigval_sort_strategy == EigvalSortStrategy.ASCENDING:
             eigvals, eigvecs = asc_sort(eigvals, eigvecs, complex_sort_strategy)
-        else:
+        elif eigval_sort_strategy == EigvalSortStrategy.TOTAL_VARIATION:
             eigvals, eigvecs = tv_sort(shift_mtx, eigvals, eigvecs)
 
         self._graph_freqs = eigvals

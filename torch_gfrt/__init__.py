@@ -7,6 +7,7 @@ class EigvalSortStrategy(Enum):
     """Enum for the different strategies to sort
     eigenvalues and eigenvectors"""
 
+    NO_SORT = auto()
     TOTAL_VARIATION = auto()
     ASCENDING = auto()
 

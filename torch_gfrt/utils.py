@@ -39,3 +39,14 @@ def asc_sort(
     else:
         eigvals, idx = th.sort(eigvals)
         return eigvals, eigvecs[:, idx]
+
+
+def get_matvec_tensor_einsum_str(dim_count: int, req_dim: int) -> str:
+    """Generates `einsum()` string to left multiply a matrix
+    with all the vectors in the given tensor dimension."""
+    if req_dim < -dim_count or req_dim >= dim_count:
+        raise ValueError("Dimension size error.")
+    dim = th.remainder(req_dim, th.tensor(dim_count))
+    diff = dim_count - dim
+    remaining_str = "".join([chr(num) for num in range(98, 98 + diff)])
+    return f"ab,...{remaining_str}->...{remaining_str.replace('b', 'a', 1)}"

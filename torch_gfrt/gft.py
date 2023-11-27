@@ -1,11 +1,16 @@
 import torch as th
 
 from torch_gfrt import ComplexSortStrategy, EigvalSortStrategy
-from torch_gfrt.utils import asc_sort, is_hermitian, tv_sort
+from torch_gfrt.utils import asc_sort, get_matvec_tensor_einsum_str, is_hermitian, tv_sort
 
 
 class GFT:
-    """Graph Fourier Transform (GFT) class. The GFT class can be used to calculate the GFT, inverse GFT and graph frequencies of a graph given a shift matrix. The shift matrix type (adjacency, Laplacian, etc.), eigenvalue, and complex number sorting strategies can be adjusted as pleased. The GFT class is initialized with a shift matrix and optional sorting strategies. Then, the GFT matrix, the inverse GFT matrix and the graph frequencies calculated during initialization using the corresponding methods."""
+    """Graph Fourier Transform (GFT) class. The GFT class can be used to calculate the GFT,
+    inverse GFT and graph frequencies of a graph given a shift matrix. The shift matrix
+    type (adjacency, Laplacian, etc.), eigenvalue, and complex number sorting strategies
+    can be adjusted as pleased. The GFT class is initialized with a shift matrix and
+    optional sorting strategies. Then, the GFT matrix, the inverse GFT matrix and the graph
+    frequencies calculated during initialization using the corresponding methods."""
 
     def __init__(
         self,
@@ -43,12 +48,20 @@ class GFT:
         """Returns the previously calculated inverse graph Fourier transform matrix."""
         return self._igft_mtx
 
-    def gft(self, x: th.Tensor) -> th.Tensor:
+    def gft(self, x: th.Tensor, *, dim: int = -1) -> th.Tensor:
         """Returns the graph Fourier transform of the input with previously calculated graph Fourier transform matrix."""
         dtype = th.promote_types(x.dtype, self._gft_mtx.dtype)
-        return th.matmul(self._gft_mtx.type(dtype), x.type(dtype))
+        return th.einsum(
+            get_matvec_tensor_einsum_str(len(x.shape), dim),
+            self._gft_mtx.type(dtype),
+            x.type(dtype),
+        )
 
-    def igft(self, x: th.Tensor) -> th.Tensor:
+    def igft(self, x: th.Tensor, *, dim: int = -1) -> th.Tensor:
         """Returns the inverse graph Fourier transform of the input with previously calculated graph Fourier transform matrix."""
         dtype = th.promote_types(x.dtype, self._gft_mtx.dtype)
-        return th.matmul(self._igft_mtx.type(dtype), x.type(dtype))
+        return th.einsum(
+            get_matvec_tensor_einsum_str(len(x.shape), dim),
+            self._igft_mtx.type(dtype),
+            x.type(dtype),
+        )

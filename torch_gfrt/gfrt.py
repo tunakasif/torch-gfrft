@@ -1,6 +1,6 @@
 import torch as th
 
-from torch_gfrt.utils import is_hermitian
+from torch_gfrt.utils import get_matvec_tensor_einsum_str, is_hermitian
 
 
 class GFRT:
@@ -19,23 +19,14 @@ class GFRT:
     def igfrt_mtx(self, a: float | th.Tensor) -> th.Tensor:
         return self.gfrt_mtx(-a)
 
-    def gfrt(self, x: th.Tensor, a: float | th.Tensor, dim: int = -1) -> th.Tensor:
+    def gfrt(self, x: th.Tensor, a: float | th.Tensor, *, dim: int = -1) -> th.Tensor:
         gfrt_mtx = self.gfrt_mtx(a)
         dtype = th.promote_types(gfrt_mtx.dtype, x.dtype)
         return th.einsum(
-            get_einsum_str(len(x.shape), dim),
+            get_matvec_tensor_einsum_str(len(x.shape), dim),
             gfrt_mtx.type(dtype),
             x.type(dtype),
         )
 
-    def igfrt(self, x: th.Tensor, a: float | th.Tensor) -> th.Tensor:
-        return th.einsum("ij,j->i", self.igfrt_mtx(a), x)
-
-
-def get_einsum_str(dim_count: int, req_dim: int) -> str:
-    if req_dim < -dim_count or req_dim >= dim_count:
-        raise ValueError("Dimension size error.")
-    dim = th.remainder(req_dim, th.tensor(dim_count))
-    diff = dim_count - dim
-    remaining_str = "".join([chr(num) for num in range(98, 98 + diff)])
-    return f"ab,...{remaining_str}->...{remaining_str.replace('b', 'a', 1)}"
+    def igfrt(self, x: th.Tensor, a: float | th.Tensor, *, dim: int = -1) -> th.Tensor:
+        return self.gfrt(x, -a, dim=dim)

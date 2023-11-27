@@ -16,12 +16,13 @@ GRAPH_SIGNAL = th.rand(SIZE, dtype=th.float64, device=DEVICE)
 
 
 def test_gft_trivial() -> None:
-    gft = GFT(shift_mtx=th.eye(SIZE, device=DEVICE))
+    A = th.eye(SIZE, device=DEVICE)
+    gft = GFT(shift_mtx=A, eigval_sort_strategy=EigvalSortStrategy.NO_SORT)
     graph_freqs = gft.graph_freqs
     gft_mtx = gft.gft_mtx
     igft_mtx = gft.igft_mtx
 
-    assert th.allclose(graph_freqs, th.ones_like(graph_freqs))
+    assert th.allclose(graph_freqs, th.ones_like(graph_freqs, device=DEVICE))
     assert th.allclose(gft_mtx, th.eye(SIZE, device=DEVICE))
     assert th.allclose(igft_mtx, th.eye(SIZE, device=DEVICE))
 

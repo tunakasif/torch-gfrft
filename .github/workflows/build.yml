@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Check out
         if: ${{ env.PERSONAL_ACCESS_TOKEN != '' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: "${{ secrets.PERSONAL_ACCESS_TOKEN }}"
           fetch-depth: 0
@@ -54,7 +54,7 @@ jobs:
           changelog_increment_filename: body.md
       - name: Release
         if: ${{ env.PERSONAL_ACCESS_TOKEN != '' }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body_path: "body.md"
           tag_name: ${{ env.REVISION }}

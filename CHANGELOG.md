@@ -1,3 +1,11 @@
+## 0.3.1 (2024-04-19)
+
+### Refactor
+
+- further rename remaining `gfrt->gfrft`
+- directory-base renaming `gfrt -> gfrft`
+- rename `gfrt.py` to `gfrft.py`
+
 ## 0.3.0 (2024-04-19)
 
 ### Feat

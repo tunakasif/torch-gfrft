@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "torch-gfrft"
-version = "0.3.0"
+version = "0.3.1"
 description = "Python project contains all the boilerplate you need to create a Python package."
 authors = ["Tuna Alikaşifoğlu <tunakasif@gmail.com>"]
 
@@ -53,7 +53,7 @@ disallow_untyped_defs = true
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "$version"
-version = "0.3.0"
+version = "0.3.1"
 version_files = [
     "pyproject.toml:^version",
     "torch_gfrft/__init__.py:__version__",

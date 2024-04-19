@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from torch_gfrft.gfrft import GFRT
+from torch_gfrft.gfrft import GFRFT
 from torch_gfrft.gft import GFT
 
 
@@ -41,17 +41,17 @@ class IGFTLayer(nn.Module):
         return self.gft.igft(x, dim=self.dim)
 
 
-class GFRTLayer(nn.Module):
+class GFRFTLayer(nn.Module):
     def __init__(
         self,
-        gfrt: GFRT,
+        gfrft: GFRFT,
         order: float = 1.0,
         *,
         dim: int = -1,
         trainable: bool = True,
     ) -> None:
         super().__init__()
-        self.gfrt = gfrt
+        self.gfrft = gfrft
         self.order = nn.Parameter(
             torch.tensor(order, dtype=torch.float32),
             requires_grad=trainable,
@@ -59,7 +59,9 @@ class GFRTLayer(nn.Module):
         self.dim = dim
 
     def __repr__(self) -> str:
-        return f"GFRT(order={self.order.item()}, size={self.gfrt._eigvals.size(0)}, dim={self.dim})"
+        return (
+            f"GFRFT(order={self.order.item()}, size={self.gfrft._eigvals.size(0)}, dim={self.dim})"
+        )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.gfrt.gfrt(x, self.order, dim=self.dim)
+        return self.gfrft.gfrft(x, self.order, dim=self.dim)

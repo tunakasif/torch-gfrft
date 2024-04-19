@@ -6,7 +6,7 @@ authors = ["Tuna Alikaşifoğlu <tunakasif@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
-torch = "2.0.0"
+torch = "^2.0.0"
 numpy = "^1.26.1"
 
 [tool.poetry.group.dev.dependencies]

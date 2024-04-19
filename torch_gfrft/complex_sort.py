@@ -3,7 +3,7 @@ from collections.abc import Callable
 import numpy as np
 import torch
 
-from torch_gfrt import ComplexSortStrategy
+from torch_gfrft import ComplexSortStrategy
 
 
 def complex_sort(

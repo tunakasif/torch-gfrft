@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "torch-gfrt"
+name = "torch-gfrft"
 version = "0.3.0"
 description = "Python project contains all the boilerplate you need to create a Python package."
 authors = ["Tuna Alikaşifoğlu <tunakasif@gmail.com>"]
@@ -56,7 +56,7 @@ tag_format = "$version"
 version = "0.3.0"
 version_files = [
     "pyproject.toml:^version",
-    "torch_gfrt/__init__.py:__version__",
+    "torch_gfrft/__init__.py:__version__",
 ]
 major_version_zero = true
 update_changelog_on_bump = true

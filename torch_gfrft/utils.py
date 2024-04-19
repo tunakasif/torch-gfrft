@@ -1,7 +1,7 @@
 import torch as th
 
-from torch_gfrt import ComplexSortStrategy
-from torch_gfrt.complex_sort import complex_sort
+from torch_gfrft import ComplexSortStrategy
+from torch_gfrft.complex_sort import complex_sort
 
 
 def is_hermitian(mtx: th.Tensor) -> bool:

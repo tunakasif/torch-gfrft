@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 import torch
 
-from torch_gfrt.complex_sort import ComplexSortStrategy, angle_02pi_np, complex_sort
+from torch_gfrft.complex_sort import ComplexSortStrategy, angle_02pi_np, complex_sort
 
 
 def test_incorrect_sort_type() -> None:

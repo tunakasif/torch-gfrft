@@ -1,4 +1,4 @@
-PROJECT_NAME:=torch_gfrt
+PROJECT_NAME:=torch_gfrft
 EXECUTER:=poetry run
 
 all: format lint security test requirements

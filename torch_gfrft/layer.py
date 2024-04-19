@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-from torch_gfrt.gfrft import GFRT
-from torch_gfrt.gft import GFT
+from torch_gfrft.gfrft import GFRT
+from torch_gfrft.gft import GFT
 
 
 class GFTLayer(nn.Module):

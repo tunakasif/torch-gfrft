@@ -1,6 +1,6 @@
 import torch as th
 
-from torch_gfrt.utils import get_matvec_tensor_einsum_str, is_hermitian
+from torch_gfrft.utils import get_matvec_tensor_einsum_str, is_hermitian
 
 
 class GFRT:

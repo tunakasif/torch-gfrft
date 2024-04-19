@@ -1,7 +1,7 @@
 import torch as th
 
-from torch_gfrt import ComplexSortStrategy, EigvalSortStrategy
-from torch_gfrt.gft import GFT
+from torch_gfrft import ComplexSortStrategy, EigvalSortStrategy
+from torch_gfrft.gft import GFT
 
 SIZE = 100
 if th.cuda.is_available():

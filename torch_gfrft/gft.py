@@ -1,7 +1,7 @@
 import torch as th
 
-from torch_gfrt import ComplexSortStrategy, EigvalSortStrategy
-from torch_gfrt.utils import asc_sort, get_matvec_tensor_einsum_str, is_hermitian, tv_sort
+from torch_gfrft import ComplexSortStrategy, EigvalSortStrategy
+from torch_gfrft.utils import asc_sort, get_matvec_tensor_einsum_str, is_hermitian, tv_sort
 
 
 class GFT:

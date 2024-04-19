@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from torch_gfrt.gfrt import GFRT
+from torch_gfrt.gfrft import GFRT
 from torch_gfrt.gft import GFT
 
 
